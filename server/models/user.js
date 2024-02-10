@@ -9,6 +9,7 @@ User.init({
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
+        unique: true
       },
       firstName: {
         type: DataTypes.STRING,
@@ -20,7 +21,7 @@ User.init({
         allowNull: false,
         required: true,
       },
-      emailId: {
+      email: {
         type: DataTypes.STRING,
         allowNull: false,
         required: true,
@@ -31,6 +32,30 @@ User.init({
         allowNull: false,
         required: true,
       },
+      createdAt:{
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
+      },
+      street:{
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      aptnumber:{
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      city:{
+        type: DataTypes.STRING,
+        allowNull: true
+      },
+      state:{
+        type: DataTypes.STRING(2),
+        allowNull: true
+      },
+      zipcode: {
+        type: DataTypes.STRING,
+        allowNull: true
+      } 
     },
     {
       sequelize: sequelizeInstance,
