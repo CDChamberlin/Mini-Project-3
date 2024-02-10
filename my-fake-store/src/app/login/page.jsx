@@ -31,9 +31,8 @@ export default function Login() {
     router.push('/dashboard')
     
   };
-
+// Sign In Component from Material UI. 
   return (
-    // <ThemeProvider theme={defaultTheme}>
     <Container component="main" maxWidth="sm">
       <CssBaseline />
       <Box
@@ -98,6 +97,5 @@ export default function Login() {
         </Box>
       </Box>
     </Container>
-    // </ThemeProvider>
   );
 }
