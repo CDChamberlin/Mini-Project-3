@@ -1,8 +1,9 @@
-const { createContext, useState, useContext } = require("react");
+'use client'
+import { createContext, useContext, useState } from 'react';
 
 const FormContext = createContext()
 
-export const FormProvider = ({children}) =>{
+export default FormProvider = ({children}) =>{
     const [formData, setFormData] = useState({})
     return (
         <FormContext.Provider value={{formData, setFormData}}>
