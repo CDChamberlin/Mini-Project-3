@@ -1,3 +1,4 @@
+import { UserProvider } from "@/context/UserContext";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -11,7 +12,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <UserProvider>
       <body className={inter.className}>{children}</body>
+      </UserProvider>
     </html>
   );
 }
