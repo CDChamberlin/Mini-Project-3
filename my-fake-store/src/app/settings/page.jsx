@@ -1,12 +1,18 @@
 "use client";
 
 import { useUser } from "@/context/UserContext";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import SaveIcon from '@mui/icons-material/Save';
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 function AccountInfo() {
-  const user = useUser(); 
+  const {user, deleteUser} = useUser(); 
+  const handleDelete = () =>{
+    deleteUser(user.email)
+  }
+  console.log(JSON.stringify(user))
   return (
     <Paper style={{ padding: 20 }}>
       <Typography variant="h5">Current Account Information</Typography>
@@ -18,6 +24,7 @@ function AccountInfo() {
         Address: {user.street}, {user.aptnumber}, {user.city}, {user.state},{" "}
         {user.zipcode}
       </Typography>
+      <Button variant="contained" color="error" size="large" startIcon={<DeleteForeverIcon />} onClick={handleDelete}>Delete Account</Button>
     </Paper>
   );
 }
@@ -35,8 +42,7 @@ function AccountForm() {
     zipcode: user.zipcode || "",
   });
 
-  const [oldEmail, setOldEmail] = useState(user.email)
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -45,6 +51,8 @@ function AccountForm() {
   const handleUpdateUser = () => {
     updateUser({ ...user, ...formData });
   };
+
+  
 
   return (
     <Paper style={{ padding: 20 }}>
@@ -127,11 +135,13 @@ function AccountForm() {
             onClick={handleUpdateUser}
             variant="contained"
             color="primary"
+            endIcon={<SaveIcon />}
           >
             Save Changes
           </Button>
         </Grid>
       </Grid>
+      
     </Paper>
   );
 }

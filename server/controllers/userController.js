@@ -33,9 +33,9 @@ const updateUser = (req, res) => {
       res.status(500).send({ result: 500, error: err.message });
     });
 };
-// deletes user matching ID from params
+// deletes user matching email from params
 const deleteUser = (req, res) => {
-  Models.User.destroy({ where: { id: req.params.id } })
+  Models.User.destroy({ where: { email: req.params.email } })
     .then((data) => {
       res.send({ result: 200, data: data });
     })

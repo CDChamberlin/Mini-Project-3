@@ -17,7 +17,7 @@ router.put("/:email", (req, res) => {
   Controllers.userController.updateUserByEmail(email, newData, res);
 });
 // matches DELETE requests to /api/users/123 (123 in id param)
-router.delete("/:id", (req, res) => {
+router.delete("/:email", (req, res) => {
   Controllers.userController.deleteUser(req, res);
 });
 module.exports = router;

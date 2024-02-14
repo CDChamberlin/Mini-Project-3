@@ -38,6 +38,17 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const deleteUser = async (email) => {
+    try {
+      const response = await api.delete(`/users/${email}`);
+      setCurrentUser(null)
+      router.push("/")
+    } catch (error) {
+      console.error("Error deleting user: ", error);
+      throw error;
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -47,6 +58,7 @@ export const UserProvider = ({ children }) => {
         createAccount,
         logout,
         updateUser,
+        deleteUser
       }}
     >
       {children}
