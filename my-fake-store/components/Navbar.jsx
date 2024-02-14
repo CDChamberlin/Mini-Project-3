@@ -4,7 +4,7 @@ import { Button, ButtonGroup } from "@mui/material";
 import Link from "next/link";
 
 export default function Navbar({ children }) {
-  const { currentUser } = useUser();
+  const { user, logout } = useUser();
 
   return (
     <>
@@ -18,17 +18,22 @@ export default function Navbar({ children }) {
         </Link>
         <Link href="/shopping">
           <Button>Cart</Button>
-        </Link>
-        {currentUser ? (
+        </Link> 
+        </ButtonGroup>
+        {user ? (
+          <ButtonGroup>
           <Link href="/">
-            <Button>Log Out</Button>
+            <Button onClick={logout}>Log Out</Button>
           </Link>
+          <Link href="/settings">
+            <Button>Settings</Button>
+          </Link>
+          </ButtonGroup>
         ) : (
           <Link href="/login">
             <Button>Log In</Button>
           </Link>
         )}
-      </ButtonGroup>
       {children}
     </>
   );

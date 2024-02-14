@@ -17,11 +17,17 @@ export const CartProvider = ({ children }) => {
       console.log(cart);
     }
   };
+  const removeFromCart = (itemName) =>{
+    let newCart = cart.slice(cart.findIndex((item) => item.title === itemName), 1)
+    setCart(newCart)
+  }
+
+  const isInCart = (itemName) => {return cart.some((item) => item.title === itemName)}
 
   // const getCart() => return(cart)
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, updateProducts, productList }}
+      value={{ cart, addToCart, updateProducts, productList, removeFromCart, isInCart }}
     >
       {children}
     </CartContext.Provider>

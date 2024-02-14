@@ -8,6 +8,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import Link from "next/link";
 
 export default function SmallCard({ name, image, description, price }) {
   const userCart = useCart()
@@ -30,10 +31,21 @@ export default function SmallCard({ name, image, description, price }) {
         <Typography variant="body2">$ {price}</Typography>
       </CardContent>
       <CardActions>
+      {/* {userCart.isInCart(name) ? (
+          <Button size="small" onClick={() => userCart.removeFromCart(name)}>
+            Remove from Cart
+          </Button>
+        ) : (
+          <Button size="small" onClick={() => userCart.addToCart(name)}>
+            Add to Cart
+          </Button>
+        )} */}
         <Button size="small" onClick={() => userCart.addToCart(name)}>
-          Add to Cart
-        </Button>
+            Add to Cart
+          </Button>
+          <Link href="#">
         <Button size="small">Product Page</Button>
+        </Link>
       </CardActions>
     </Card>
   );

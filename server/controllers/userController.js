@@ -33,9 +33,9 @@ const updateUser = (req, res) => {
       res.status(500).send({ result: 500, error: err.message });
     });
 };
-// deletes user matching ID from params
+// deletes user matching email from params
 const deleteUser = (req, res) => {
-  Models.User.destroy({ where: { id: req.params.id } })
+  Models.User.destroy({ where: { email: req.params.email } })
     .then((data) => {
       res.send({ result: 200, data: data });
     })
@@ -44,9 +44,37 @@ const deleteUser = (req, res) => {
       res.status(500).send({ result: 500, error: err.message });
     });
 };
+
+const findUserByEmail = (email) => {
+  return Models.User.findOne({ where: { email: email } });
+};
+
+// Update user information by email
+const updateUserByEmail = async (email, newData, res) => {
+  try {
+    const user = await findUserByEmail(email);
+    if (user) {
+      // Update user information
+      await user.update(newData);
+      res
+        .status(204)
+        .send({
+          result: 204,
+          message: "User information updated successfully",
+        });
+    } else {
+      res.status(404).send({ result: 404, message: "User not found" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ result: 500, error: err.message });
+  }
+};
+
 module.exports = {
   getUsers,
   createUser,
   updateUser,
   deleteUser,
+  updateUserByEmail,
 };
