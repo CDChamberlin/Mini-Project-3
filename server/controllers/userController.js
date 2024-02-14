@@ -44,9 +44,34 @@ const deleteUser = (req, res) => {
       res.status(500).send({ result: 500, error: err.message });
     });
 };
+
+const findUserByEmail = (email) => {
+  return Models.User.findOne({ where: { email: email } });
+};
+
+// Update user information by email
+const updateUserByEmail = async (email, newData, res) => {
+  try {
+    const user = await findUserByEmail(email);
+    if (user) {
+      // Update user information
+      await user.update(newData);
+      res.status(204).send({ result: 204, message: "User information updated successfully" });
+    } else {
+      res.status(404).send({ result: 404, message: "User not found" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ result: 500, error: err.message });
+  }
+};
+
+
+
 module.exports = {
   getUsers,
   createUser,
   updateUser,
   deleteUser,
+  updateUserByEmail
 };
