@@ -1,5 +1,6 @@
 "use client";
 
+//import { useForm } from "@/context/FormContext";
 import { useUser } from "@/context/UserContext";
 import { LockOutlined } from "@mui/icons-material";
 import Visibility from "@mui/icons-material/Visibility";
@@ -15,30 +16,43 @@ import {
   InputAdornment,
   Link,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+
 
 export default function Signup() {
   const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (e) => {
-    e.preventDefault();
-  };
+
   const user = useUser();
-  const handleSubmit = (event) => {
+  //const form = useForm();
+  const router = useRouter();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
-    user.createAccount({
-      fullName: data.get("firstName") + " " + data.get("lastName"),
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      email: data.get("email"),
-      password: data.get("password"),
-      address: data.get("address"),
-    });
+    try {
+      await user.createAccount({
+        fullName: data.get("firstName") + " " + data.get("lastName"),
+        firstName: data.get("firstName"),
+        lastName: data.get("lastName"),
+        email: data.get("email"),
+        password: data.get("password"),
+      });
+      router.push("dashboard");
+    } catch (error) {
+      // Handle any errors that occur during user creation
+      console.error(`Error creating user: ${error}`);
+    }
+  };
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
   };
 
   return (
@@ -111,7 +125,7 @@ export default function Signup() {
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
-                  )
+                  ),
                 }}
               />
             </Grid>
@@ -122,7 +136,7 @@ export default function Signup() {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Next Step
+            Sign Up
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>

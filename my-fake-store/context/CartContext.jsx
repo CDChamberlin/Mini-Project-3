@@ -6,10 +6,9 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  const [productList, setProductList] = useState([])
+  const [productList, setProductList] = useState([]);
 
-  const updateProducts = (products) =>
-  setProductList(products) 
+  const updateProducts = (products) => setProductList(products);
   const addToCart = (itemName) => {
     console.log("Item added.");
     const selectedItem = productList.find((item) => item.title === itemName);
@@ -18,10 +17,16 @@ export const CartProvider = ({ children }) => {
       console.log(cart);
     }
   };
+
+  // const getCart() => return(cart)
   return (
-    <CartContext.Provider value={{ cart, addToCart, updateProducts, productList }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, updateProducts, productList }}
+    >
       {children}
     </CartContext.Provider>
   );
 };
-export const useCart = () => useContext(CartContext);
+export function useCart() {
+  return useContext(CartContext);
+}
