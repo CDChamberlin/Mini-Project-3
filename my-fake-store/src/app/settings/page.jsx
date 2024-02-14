@@ -2,10 +2,11 @@
 
 import { useUser } from "@/context/UserContext";
 import { Button, Grid, Paper, TextField, Typography } from "@mui/material";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 function AccountInfo() {
-  const user = useUser();
+  const user = useUser(); 
   return (
     <Paper style={{ padding: 20 }}>
       <Typography variant="h5">Current Account Information</Typography>
@@ -136,6 +137,9 @@ function AccountForm() {
 }
 
 export default function Settings() {
+  const router = useRouter()
+  const user = useUser()
+  if (user === null){router.push("/login")} 
   return (
     <div style={{ padding: 20 }}>
       <Grid container spacing={3}>
