@@ -56,7 +56,12 @@ const updateUserByEmail = async (email, newData, res) => {
     if (user) {
       // Update user information
       await user.update(newData);
-      res.status(204).send({ result: 204, message: "User information updated successfully" });
+      res
+        .status(204)
+        .send({
+          result: 204,
+          message: "User information updated successfully",
+        });
     } else {
       res.status(404).send({ result: 404, message: "User not found" });
     }
@@ -66,12 +71,10 @@ const updateUserByEmail = async (email, newData, res) => {
   }
 };
 
-
-
 module.exports = {
   getUsers,
   createUser,
   updateUser,
   deleteUser,
-  updateUserByEmail
+  updateUserByEmail,
 };

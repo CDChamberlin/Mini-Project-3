@@ -11,13 +11,13 @@ router.post("/create", (req, res) => {
   Controllers.userController.createUser(req.body, res);
 });
 // matches PUT requests to /api/users/123 (stores 123 in id param)
-router.put('/:email', (req, res) => {
+router.put("/:email", (req, res) => {
   const email = req.params.email;
   const newData = req.body; // Assuming the request body contains the updated user data
   Controllers.userController.updateUserByEmail(email, newData, res);
 });
-    // matches DELETE requests to /api/users/123 (123 in id param)
-    router.delete('/:id', (req, res) => {
-    Controllers.userController.deleteUser(req, res)
-    })
+// matches DELETE requests to /api/users/123 (123 in id param)
+router.delete("/:id", (req, res) => {
+  Controllers.userController.deleteUser(req, res);
+});
 module.exports = router;
