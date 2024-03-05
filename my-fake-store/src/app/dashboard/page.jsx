@@ -5,7 +5,7 @@ import { Suspense } from "react";
 
 export default function Dashboard() {
   return(<>
-    <h1>Dashboard</h1>
+    <h1>Products</h1>
     <Suspense fallback={<Loading />}>
       <ProductCards />
     </Suspense>
